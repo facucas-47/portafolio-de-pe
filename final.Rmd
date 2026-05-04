@@ -70,7 +70,6 @@ Este es el texto del resumen ejecutivo. La numeración en el pie de esta página
 Este documento evalúa la configuración de R Markdown.
 
 ## 2.1. Variables analizadas
-deede
 
 La siguiente tabla y cálculo prueban la correcta ejecución del motor de R dentro del entorno.
 ```{r echo=FALSE}
