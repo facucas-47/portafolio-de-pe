@@ -16,7 +16,7 @@ header-includes:
 - \fancyhf{}
 - \lhead{\includegraphics[height=1cm]{logo_utn.png}}
 - \rhead{Probabilidad y Estadística}
-- "\\lfoot{Grupo X - Apellido1, Apellido2, Apellido3}"
+- "\\lfoot{Grupo 48 - Castelli, Paredes}"
 - \rfoot{\thepage}
 - \renewcommand{\headrulewidth}{0.4pt}
 - \renewcommand{\footrulewidth}{0.4pt}
@@ -28,7 +28,7 @@ header-includes:
 
 \begin{center}
 
-\includegraphics[width=6cm]{logo_utn.png}
+\includegraphics[width=10cm]{logo_utn.png}
 
 \vspace{2cm}
 
@@ -41,14 +41,12 @@ header-includes:
 \vspace{3cm}
 
 \begin{flushleft}
-\Large \textbf{Equipo X} \\
+\Large \textbf{Equipo 48} \\
 \vspace{0.5cm}
 \normalsize
 \begin{itemize}
   \item Castelli, Facundo - Ingeniería en Sistemas
-  \item Apellido, Nombre 2 - Especialidad 2
-  \item Apellido, Nombre 3 - Especialidad 3
-  \item Apellido, Nombre 4 - Especialidad 4
+  \item Paredes, Gerónimo - Ingeniería en Sistemas
 \end{itemize}
 \end{flushleft}
 
@@ -60,22 +58,55 @@ header-includes:
 
 \newpage
 \setcounter{page}{1}
-
-# 1. RESUMEN EJECUTIVO
-
-Este es el texto del resumen ejecutivo. La numeración en el pie de esta página debe indicar el número uno.
-
-# 2. INTRODUCCIÓN
-
-Este documento evalúa la configuración de R Markdown.
-
-## 2.1. Variables analizadas
-
-La siguiente tabla y cálculo prueban la correcta ejecución del motor de R dentro del entorno.
 ```{r echo=FALSE}
-datos <- data.frame(
-  Variable = c("Edad", "Ingresos"),
-  Tipo = c("Cuantitativa", "Cuantitativa")
+datos_enut <- read.table("enut2021_base.txt", header = TRUE, sep = "|", fileEncoding = "UTF-8")
+```
+# RESUMEN EJECUTIVO
+
+A completar
+
+# INTRODUCCIÓN
+
+El presente informe estadístico se fundamenta en el procesamiento y análisis empírico de la base de datos principal correspondiente a la Encuesta Nacional de Uso del Tiempo (ENUT), llevada a cabo durante el año 2021 por el Instituto Nacional de Estadística y Censos (INDEC). Este relevamiento constituye una herramienta métrica orientada a cuantificar y caracterizar la distribución del tiempo de la población, visibilizando particularidades asociadas al trabajo remunerado, las tareas domésticas no remuneradas, la demanda y provisión de cuidados, así como el tiempo destinado al ocio y actividades personales.
+
+La información contenida en el conjunto de datos abarca una multiplicidad de dimensiones. Por un lado, proporciona variables de caracterización sociodemográfica y estructural tanto a nivel individual (edad, género, nivel educativo, condición de actividad laboral) como a nivel del hogar (clima educativo, características habitacionales, tipología de hogar y presencia de demandantes de cuidado). Por otro lado, aporta métricas específicas sobre el uso del tiempo diario, cuantificando la participación y el tiempo invertido en las distintas actividades.
+
+Desde el punto de vista inferencial, los datos estructurados en este archivo corresponden a una muestra estadística y no a una población censal. Por el contrario, el relevamiento se aplica sobre un subconjunto representativo de viviendas seleccionadas bajo un diseño de muestreo probabilístico complejo. Debido a esta naturaleza muestral, para poder expandir los resultados a la totalidad del territorio nacional es estrictamente necesario utilizar los factores de expansión incorporados en la base de datos.
+
+Dentro de la estructura de la base principal, la unidad de observación definida para este estudio es la persona de 14 años y más. Metodológicamente, se releva la información general de todos los miembros del hogar, pero la aplicación del diario de actividades y el cálculo de los indicadores de uso del tiempo se concentra en un único integrante de este estrato etario, seleccionado de forma aleatoria para garantizar la validez representativa de la muestra.
+
+# VARIABLES DE ESTUDIO
+
+En este informe se trabajará con seis variables preasignadas, las cuales se describen a continuación:
+
+```{r echo = FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+# descripsion de variables
+tabla_variables <- data.frame(
+  Variable = c("J_NIVEL_EDUCATIVO", 
+               "REGION",
+               "EDAD_SEL",
+               "BHCV02",
+               "TCS_ACT_LAVARPLANCHAR",
+               "ACS_ACT_CUIDARMASCOTAS"),
+  Descripción = c("Nivel educativo más alto alcanzado por la persona que ejerce la jefatura del hogar.", 
+                  "Código que identifica la región estadística de residencia del hogar encuestado.", 
+                  "Edad en años cumplidos de la persona de 14 años o más seleccionada aleatoriamente en el     hogar.", 
+                  "Cantidad total de ambientes o habitaciones que tiene la vivienda (sin contar baño, cocina ni pasillos).", 
+                  "Tiempo con simultaneidad dedicado a lavar, planchar o arreglar la ropa y el calzado.", 
+                  "Tiempo con simultaneidad dedicado al paseo, higiene, alimentación de mascotas y cuidado de plantas."),
+  Clasificación = c("Cualitativa Ordinal.", 
+                    "Cualitativa Nominal.", 
+                    "Cuantitativa Discreta.", 
+                    "Cuantitativa Discreta.", 
+                    "Cuantitativa Continua.", 
+                    "Cuantitativa Continua.")
 )
-print(datos)
-mean(c(10, 20, 30))
+kable(tabla_variables, format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("hold_position")) %>%
+  column_spec(1, width = "6cm") %>%
+  column_spec(2, width = "6.5cm") %>%
+  column_spec(3, width = "3.5cm")
+```
+
